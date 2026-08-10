@@ -4,11 +4,37 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TaterMind — Legal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+  .wordmark {
+    font-family: "Varela Round", -apple-system, "Segoe UI", sans-serif;
+    font-size: 32px;
+    color: var(--accent);
+    margin: 0 0 6px;
+  }
+  .wordmark .i {
+    position: relative;
+    display: inline-block;
+  }
+  .wordmark .dot {
+    position: absolute;
+    top: -0.05em;
+    left: 0.02em;
+    width: 0.22em;
+    height: 0.18em;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d8ad74, #bd8d55);
+    border: 1.5px solid #5c4020;
+    transform: rotate(-8deg);
+  }
+</style>
 </head>
 <body>
 <div class="page">
-  <h1>TaterMind</h1>
+  <h1 class="wordmark">TaterM<span class="i">&#305;<span class="dot"></span></span>nd</h1>
   <p class="updated">Legal documents for the TaterMind app.</p>
   <ul>
     <li><a href="privacy-policy.html">Privacy Policy</a></li>
