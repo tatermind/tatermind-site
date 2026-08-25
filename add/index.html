@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Add a friend on TaterMind</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+  .card {
+    text-align: center;
+    padding-top: 40px;
+  }
+  .card img { width: 72px; height: 72px; border-radius: 16px; margin-bottom: 16px; }
+  .code {
+    display: inline-block;
+    margin: 18px 0;
+    padding: 10px 18px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  .btn {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 12px 28px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+<div class="page card">
+  <img src="../icon.png" alt="TaterMind">
+  <h1>Add a friend on TaterMind</h1>
+  <p id="msg">Opening TaterMind&hellip;</p>
+  <div class="code" id="code" hidden></div>
+  <p><a class="btn" id="storeLink" href="https://play.google.com/store/apps/details?id=com.tatermind.tatermind">Get TaterMind</a></p>
+  <p style="color:var(--muted); font-size:13px;">If you already have the app, this link will open it directly.</p>
+</div>
+<script>
+  // Same store URLs as lib/core/app_config.dart — keep in sync.
+  var ANDROID_STORE_URL = 'https://play.google.com/store/apps/details?id=com.tatermind.tatermind';
+  var IOS_STORE_URL = ''; // fill in once live on the App Store, e.g. 'https://apps.apple.com/app/id0000000000'
+
+  var params = new URLSearchParams(window.location.search);
+  var code = (params.get('code') || '').trim().toUpperCase();
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPad|iPhone|iPod/.test(ua);
+  var isAndroid = /Android/.test(ua);
+  var storeUrl = isIOS ? IOS_STORE_URL : ANDROID_STORE_URL;
+
+  if (code) {
+    document.getElementById('code').textContent = code;
+    document.getElementById('code').hidden = false;
+  }
+
+  var storeLink = document.getElementById('storeLink');
+  if (storeUrl) {
+    storeLink.href = storeUrl;
+  } else {
+    storeLink.textContent = 'Coming soon on iOS';
+    storeLink.removeAttribute('href');
+  }
+
+  // Best-effort so the code can be auto-filled after a fresh install —
+  // AddFriendScreen can offer "paste code?" using this on first launch.
+  // Requires a user gesture on iOS Safari, so it's re-attempted on tap too.
+  function copyCode() {
+    if (code && navigator.clipboard) {
+      navigator.clipboard.writeText(code).catch(function () {});
+    }
+  }
+  copyCode();
+  document.body.addEventListener('click', copyCode, { once: true });
+
+  document.getElementById('msg').textContent = code
+    ? "If TaterMind didn't open automatically, install it below, then enter code " + code + '.'
+    : "If TaterMind didn't open automatically, install it below.";
+
+  // Give the OS a moment to hand off to the app (Universal/App Links)
+  // before nudging toward the store as a fallback.
+  if (storeUrl && (isIOS || isAndroid)) {
+    setTimeout(function () {
+      window.location.href = storeUrl;
+    }, 1500);
+  }
+</script>
+</body>
+</html>

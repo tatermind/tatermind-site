@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.tatermind.tatermind",
+      "sha256_cert_fingerprints": [
+        "D5:A3:F0:5C:54:BE:1D:A8:18:3F:5C:B9:EE:FF:28:8F:BB:86:FF:C6:01:7E:2D:F5:CE:DF:9F:54:2E:9C:4B:DE"
+      ]
+    }
+  }
+]
