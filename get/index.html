@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Get TaterMind</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+  .card { text-align: center; padding-top: 40px; }
+  .card img { width: 72px; height: 72px; border-radius: 16px; margin-bottom: 16px; }
+  .btn {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 12px 28px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+<div class="page card">
+  <img src="../icon.png" alt="TaterMind">
+  <h1>Get TaterMind</h1>
+  <p id="msg">Taking you to the app store&hellip;</p>
+  <p><a class="btn" id="storeLink" href="https://play.google.com/store/apps/details?id=com.tatermind.tatermind">Get TaterMind</a></p>
+</div>
+<script>
+  // Same store URLs as lib/core/app_config.dart — keep in sync.
+  var ANDROID_STORE_URL = 'https://play.google.com/store/apps/details?id=com.tatermind.tatermind';
+  var IOS_STORE_URL = ''; // fill in once live on the App Store, e.g. 'https://apps.apple.com/app/id0000000000'
+
+  var ua = navigator.userAgent || '';
+  var isIOS = /iPad|iPhone|iPod/.test(ua);
+  var isAndroid = /Android/.test(ua);
+  var storeUrl = isIOS ? IOS_STORE_URL : ANDROID_STORE_URL;
+
+  var storeLink = document.getElementById('storeLink');
+  if (storeUrl) {
+    storeLink.href = storeUrl;
+  } else {
+    storeLink.textContent = 'Coming soon on iOS';
+    storeLink.removeAttribute('href');
+    document.getElementById('msg').textContent = '';
+  }
+
+  if (storeUrl && (isIOS || isAndroid)) {
+    setTimeout(function () {
+      window.location.href = storeUrl;
+    }, 800);
+  } else {
+    document.getElementById('msg').textContent = '';
+  }
+</script>
+</body>
+</html>
